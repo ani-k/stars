@@ -1,0 +1,40 @@
+.page {
+
+}
+
+.page-header {
+
+}
+
+.page-content {
+    height: 750px;
+    width: 1300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.page-footer {
+
+}
+
+.canvas {
+    border: 2px solid cadetblue;
+}
+
+.canvas._small {
+    width: 600px;
+    height: 50px;
+}
+
+.canvas._big {
+    width: 600px;
+    height: 600px;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
