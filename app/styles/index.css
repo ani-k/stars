@@ -25,13 +25,9 @@
 }
 
 .canvas._small {
-    width: 600px;
-    height: 50px;
 }
 
 .canvas._big {
-    width: 600px;
-    height: 600px;
 }
 
 body {

@@ -1,71 +1,102 @@
-var canvasSmall = document.getElementById('canvas-small'),
+const canvasSmall = document.getElementById('canvas-small'),
     contextCanvasSmal = canvasSmall.getContext('2d'),
     canvasBig = document.getElementById('canvas-big'),
     contextCanvasBig = canvasBig.getContext('2d'),
     stars = [
         {
             color: 'red',
-            position: [50,30]
+            position: [70, 70],
+            points: []
         },
         {
             color: 'blue',
-            position: [200,0]
+            position: [450, 0],
+            points: []
         },
         {
             color: 'green',
-            position: [-100,45]
+            position: [-225, 230],
+            points: []
         },
         {
             color: 'yellow',
-            position: [-100,45]
+            position: [-225, 230],
+            points: []
         },
         {
             color: 'black',
-            position: [200,0]
+            position: [450, 0],
+            points: []
         }
     ];
 
-canvasBig.addEventListener('click', onCanvasBigClick(e));
+let innerRadius = 25,
+    spikes = 5,
+    rot = Math.PI / 2 * 3,
+    step = Math.PI / spikes,
+    outerRadius = 50;
 
-window.onload = function() {
+canvasBig.addEventListener('click', onCanvasBigClick);
+
+window.onload = function () {
+    canvasBig.width = 600;
+    canvasBig.height = 600;
+    canvasSmall.width = 600;
+    canvasSmall.height = 50;
     contextCanvasBig.save();
-    for(var i = 0; i < stars.length; i++) {
-        setStarProperties(stars[i].color, stars[i].position);
+    for (var i = 0; i < stars.length; i++) {
+        setStarProperties(stars[i], i);
     }
 };
 
-function drawStar (context, r){
-    context.save();
-    context.beginPath();
-    context.rotate(-Math.PI / 10);
-    context.scale(r, r);
-    context.moveTo(1, 0);
-    for (var i = 0; i < 9; i++) {
-        context.rotate(Math.PI / 5);
-        if (i % 2 === 0) {
-            context.lineTo(0.3819653016466596, 0);
-        } else {
-            context.lineTo(1, 0);
-        }
-    }
-
-
-    context.closePath();
-    context.fill();
-    context.stroke();
-    context.restore();
+function setStarProperties(star, index) {
+    contextCanvasBig.translate(star.position[0], star.position[1]);
+    contextCanvasBig.fillStyle = star.color;
+    contextCanvasBig.strokeStyle = star.color;
+    drawStar(index);
 }
 
-function setStarProperties (color, position) {
-    contextCanvasBig.translate(position[0],position[1]);
-    contextCanvasBig.fillStyle = color;
-    contextCanvasBig.strokeStyle = color;
-    drawStar(contextCanvasBig, 10);
+function drawStar(index) {
+    contextCanvasBig.save();
+    contextCanvasBig.beginPath();
+    contextCanvasBig.moveTo(0, -outerRadius);
+    for (i = 0; i < spikes; i++) {
+        drawPoint(outerRadius, index);
+        drawPoint(innerRadius, index);
+    }
+    contextCanvasBig.lineTo(0, -outerRadius);
+    contextCanvasBig.closePath();
+    contextCanvasBig.fill();
+    contextCanvasBig.stroke();
+    contextCanvasBig.restore();
+}
+
+function drawPoint(radius, index) {
+    let x, y;
+    x = Math.cos(rot) * radius;
+    y = Math.sin(rot) * radius;
+    contextCanvasBig.lineTo(x, y);
+    rot += step;
+    stars[index].points.push([x, y]);
 }
 
 function onCanvasBigClick(event) {
-    // contextCanvasBig.arc(event)
-    var x = event.clientX,
+    const x = event.clientX,
         y = event.clientY;
-    // for i
+    contextCanvasBig.beginPath();
+    contextCanvasBig.arc(p[0], p[1], 5, 0, 2 * Math.PI, false);
+    if (isPointInStar(x, y)) {
+        contextCanvasBig.fillStyle = "pink"
+    } else {
+        contextCanvasBig.fillStyle = "brown"
+    }
+}
+
+function isPointInStar(x, y) {
+    stars.forEach(star => {
+        for (let i = 0; i < spikes * 2; i++) {
+            let edgeX1 = star.points[i][0],
+                edgeY1 = star.points[i][1];
+        }
+    })
 }
