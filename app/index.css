@@ -1,36 +1,18 @@
 .page {
-
-}
-
-.page-header {
-
-}
-
-.page-content {
     height: 750px;
     width: 1300px;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     align-items: center;
     margin: auto;
     padding: 0 20px;
 }
 
-.page-footer {
-
-}
-
 .canvas {
     border: 2px solid cadetblue;
 }
 
-.canvas._small {
-}
-
-.canvas._big {
-}
-
 body {
     margin: 0;
-    box-sizing: border-box;
 }
