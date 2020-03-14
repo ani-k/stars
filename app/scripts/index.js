@@ -93,10 +93,18 @@ function onCanvasBigClick(event) {
 }
 
 function isPointInStar(x, y) {
+    let isInStar = false;
     stars.forEach(star => {
         for (let i = 0; i < spikes * 2; i++) {
             let edgeX1 = star.points[i][0],
-                edgeY1 = star.points[i][1];
+                edgeY1 = star.points[i][1],
+                edgeX2 = star.points[i !== 0 ? i - 1 : spikes * 2 - 1][0],
+                edgeY2 = star.points[i !== 0 ? i - 1 : spikes * 2 - 1][1];
+            if(((edgeY1 <= y && edgeY1 < edgeY2) || (edgeY2 <= y && y< yp)) && (x > (edgeX2 - edgeX1) * (y - edgeY1) / (edgeY2 - edgeY1) + edgeX1)) {
+                   isInStar = !isInStar;
+                   break;
+            }
         }
+        return isInStar;
     })
 }
