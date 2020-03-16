@@ -99,7 +99,7 @@ function drawAndFillCanvasSmall(color) {
 }
 
 function findStarByCoordinates(x, y) {
-    for (let i = 0; i < stars.length; i++) {
+    for (let i = stars.length - 1; i >= 0; i--) {
         let star = stars[i];
         if (contextCanvasBig.isPointInPath(star.path, x, y)) {
             return star;
